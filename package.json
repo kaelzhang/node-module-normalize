@@ -1,0 +1,28 @@
+{
+  "name": "module-normalize",
+  "version": "1.0.0",
+  "description": "module-normalize",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec ./test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kaelzhang/node-module-normalize.git"
+  },
+  "keywords": [
+    "module-normalize"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "author": "kaelzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaelzhang/node-module-normalize/issues"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*"
+  }
+}
