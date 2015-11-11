@@ -22,7 +22,8 @@
     "url": "https://github.com/kaelzhang/node-module-normalize/issues"
   },
   "devDependencies": {
+    "chai": "*",
     "mocha": "*",
-    "chai": "*"
+    "run-mocha-cases": "^1.0.4"
   }
 }
