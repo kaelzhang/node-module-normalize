@@ -4,9 +4,15 @@ var expect = require('chai').expect;
 var module_normalize = require('../');
 var run = require('run-mocha-cases');
 
-run('normalize.parse_id()', function (id) {
+run('normalize.parse_id(id), normalize.normalize_id(id)', function (id) {
   return module_normalize.parse_id(id);
 }).start([
+  {
+    d: 'null name',
+    a: '',
+    e: null
+  },
+
   {
     d: 'only name',
     a: 'zepto',
@@ -95,6 +101,74 @@ run('normalize.parse_id()', function (id) {
       version: '*',
       id: '@facebook/zepto@*/a.js',
       package: '@facebook/zepto@*'
+    }
+  }
+]);
+
+
+run('normalize.parse_url(url)', function (url, options) {
+  var parsed = module_normalize.parse_url(url, options);
+  return parsed;
+}).start([
+  {
+    d: 'no options, a bad case actually',
+    a: ['/mod/facebook/jquery/1.1.0/jquery.js'],
+    e: {
+      base: '/',
+      scope: '',
+      name: 'mod',
+      version: 'facebook',
+      path: '/jquery/1.1.0/jquery.js',
+      url: '/mod/facebook/jquery/1.1.0/jquery.js'
+    }
+  },
+
+  {
+    d: 'null url',
+    a: ['/mod'],
+    e: null
+  },
+
+  {
+    d: 'null url 2',
+    a: ['/mod/facebook'],
+    e: null
+  },
+
+  {
+    d: 'null url 3',
+    a: ['/mod/facebook/'],
+    e: null
+  },
+
+  {
+    d: 'base',
+    a: ['/mod/facebook/jquery/1.1.0/jquery.js', {base: '/mod'}],
+    e: {
+      base: '/mod',
+      scope: '',
+      name: 'facebook',
+      version: 'jquery',
+      path: '/1.1.0/jquery.js',
+      url: '/mod/facebook/jquery/1.1.0/jquery.js'
+    }
+  },
+
+  {
+    d: 'base, scope',
+    a: [
+      '/mod/facebook/jquery/1.1.0/jquery.js', {
+        base: '/mod',
+        scope: 'facebook'
+      }
+    ],
+    e: {
+      base: '/mod',
+      scope: 'facebook',
+      name: 'jquery',
+      version: '1.1.0',
+      path: '/jquery.js',
+      url: '/mod/facebook/jquery/1.1.0/jquery.js'
     }
   }
 ]);
