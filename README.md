@@ -11,7 +11,7 @@
 
 # module-normalize
 
-<!-- description -->
+Normalize a module id or module url.
 
 ## Install
 
@@ -22,8 +22,30 @@ $ npm install module-normalize --save
 ## Usage
 
 ```js
-var module_normalize = require('module-normalize');
+var normalize = require('module-normalize');
+
+normalize.id('jquery');             // 'jquery@*'
+normalize.id('jquery/jquery.js');   // 'jquery@*/jquery.js'
+normalize.id('jquery@1.9.0');       // 'jquery@1.9.0'
+
+// scoped module id
+normalize.id('@facebook/jquery/jquery.js');   // '@facebook/jquery/*/jquery.js'
+
+normalize.url_from_id('jquery')               // '/jquery/*/jquery.js'
+normalize.url_from_id('@facebook/jquery');    // '/facebook/jquery/*/jquery.js'
+
+// specify scope
+mormalize.url_from_id('jquery@2.0.0', {
+  scope: 'facebook'
+});
+// '/facebook/jquery/2.0.0/jquery.js'
 ```
+
+### normalize.parse_id(id)
+
+Returns `Object`
+
+- *scope* 
 
 ## License
 

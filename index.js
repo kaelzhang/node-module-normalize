@@ -131,12 +131,12 @@ function format_parsed_url (parsed) {
 }
 
 
-normalize.normalize_id = function (id) {
+normalize.id = function (id) {
   return normalize.parse_id(id).id;
 };
 
 
-normalize.normalize_url = function (url, options) {
+normalize.url = function (url, options) {
   return normalize.normalize_url(url, options).url;
 };
 
@@ -146,6 +146,8 @@ normalize.url_from_id = function (id, options) {
   var parsed = normalize.parse_id(id);
   parsed.path = parsed.path || parsed.name + '.js';
   parsed.base = options.base;
-  parsed.scope = options.scope;
+
+  // options.scope has higher priority
+  parsed.scope = options.scope || parsed.scope;
   return format_parsed_url(parsed).url;
 };

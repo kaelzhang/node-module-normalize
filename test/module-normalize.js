@@ -106,7 +106,7 @@ run('normalize.parse_id(id), normalize.normalize_id(id)', function (id) {
 ]);
 
 
-run('normalize.parse_url(url)', function (url, options) {
+run('normalize.parse_url(url), normalize.normalize_url', function (url, options) {
   var parsed = module_normalize.parse_url(url, options);
   return parsed;
 }).start([
@@ -142,7 +142,7 @@ run('normalize.parse_url(url)', function (url, options) {
   },
 
   {
-    d: 'base',
+    d: 'options.base',
     a: ['/mod/facebook/jquery/1.1.0/jquery.js', {base: '/mod'}],
     e: {
       base: '/mod',
@@ -155,7 +155,7 @@ run('normalize.parse_url(url)', function (url, options) {
   },
 
   {
-    d: 'base, scope',
+    d: 'options.base, options.scope',
     a: [
       '/mod/facebook/jquery/1.1.0/jquery.js', {
         base: '/mod',
@@ -172,3 +172,105 @@ run('normalize.parse_url(url)', function (url, options) {
     }
   }
 ]);
+
+run('normalize.url_from_id(id)', function (id, options) {
+  return module_normalize.url_from_id(id, options);
+}).start([
+  {
+    d: 'name',
+    a: 'jquery',
+    e: '/jquery/*/jquery.js'
+  },
+
+  {
+    d: 'name, version',
+    a: 'jquery@1.1.0',
+    e: '/jquery/1.1.0/jquery.js'
+  },
+
+  {
+    d: 'name, version, path',
+    a: 'jquery@1.1.0/a.js',
+    e: '/jquery/1.1.0/a.js'
+  },
+
+  {
+    d: 'name, path',
+    a: 'jquery/a.js',
+    e: '/jquery/*/a.js'
+  },
+
+  {
+    d: 'scope, name',
+    a: '@facebook/jquery',
+    e: '/facebook/jquery/*/jquery.js'
+  },
+
+  {
+    d: 'scope, name, version',
+    a: '@facebook/jquery@1.1.0',
+    e: '/facebook/jquery/1.1.0/jquery.js'
+  },
+
+  {
+    d: 'scope, name, version, path',
+    a: '@facebook/jquery@1.0.0/a.js',
+    e: '/facebook/jquery/1.0.0/a.js'
+  },
+
+  {
+    d: 'scope, name, path',
+    a: '@facebook/jquery/a.js',
+    e: '/facebook/jquery/*/a.js'
+  },
+
+  {
+    d: 'name, path, options.scope, options.base',
+    a: ['jquery', {
+      scope: 'facebook',
+      base: 'mod'
+    }],
+
+    e: '/mod/facebook/jquery/*/jquery.js'
+  },
+
+  {
+    d: 'name, path, options.scope, options.base',
+    a: ['jquery', {
+      scope: 'facebook',
+      base: '/mod'
+    }],
+
+    e: '/mod/facebook/jquery/*/jquery.js'
+  },
+
+  {
+    d: 'name, path, options.scope, options.base',
+    a: ['jquery', {
+      scope: 'facebook',
+      base: '/mod/'
+    }],
+
+    e: '/mod/facebook/jquery/*/jquery.js'
+  },
+
+  {
+    d: 'name, path, options.scope, options.base',
+    a: ['jquery', {
+      scope: 'facebook',
+      base: 'mod/'
+    }],
+
+    e: '/mod/facebook/jquery/*/jquery.js'
+  },
+
+  {
+    d: 'priority options.scope: name, path, options.scope, options.base',
+    a: ['@twitter/jquery', {
+      scope: 'facebook',
+      base: 'mod/'
+    }],
+
+    e: '/mod/facebook/jquery/*/jquery.js'
+  }
+])
