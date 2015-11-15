@@ -43,9 +43,18 @@ mormalize.url_from_id('jquery@2.0.0', {
 
 ### normalize.parse_id(id)
 
+```js
+[@<scope>/]<name>[@<version>][<path>]
+```
+
 Returns `Object`
 
-- *scope* 
+- **scope** the package scope, default to `''`
+- **name** the name of the package
+- **version** the version of the package, default ot `'*'` if not specified.
+- **path** defualt to `''`
+- **id** the normalized id
+- **package** package is the subtle string of `id` excluding `path`
 
 ## License
 
