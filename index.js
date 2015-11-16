@@ -108,8 +108,7 @@ normalize.parse_url = function (url, options) {
     name: name,
     version: version,
     path: path,
-    base: base,
-    scope: scope
+    base: base
   });
 };
 

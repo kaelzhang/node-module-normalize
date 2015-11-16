@@ -1,6 +1,6 @@
 {
   "name": "module-normalize",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "module-normalize",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,10 @@
     "url": "git://github.com/kaelzhang/node-module-normalize.git"
   },
   "keywords": [
-    "module-normalize"
+    "module",
+    "normalize",
+    "commonjs",
+    "parser"
   ],
   "engines": {
     "node": ">=0.10.0"
